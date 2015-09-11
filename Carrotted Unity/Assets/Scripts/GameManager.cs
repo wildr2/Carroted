@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     private int[] scores;
     private int points_to_win = 16;
     private int winner_player_num = -1;
+    private bool turn_resolved; // a point was won by either player
 
 
     // Time
@@ -54,8 +55,8 @@ public class GameManager : MonoBehaviour
         block_manager.Initialize();
 
         // players
-        players[0].Inititalize(1, "Keube", Color.red, false, 3, this);
-        players[1].Inititalize(2, "Cayla", Color.green, true, 1, this);
+        players[0].Inititalize(1, "Keube", GameSettings.Instance.GetPlayerColor(1), false, 3, this);
+        players[1].Inititalize(2, "Cayla", GameSettings.Instance.GetPlayerColor(2), true, 1, this);
 
         // events
         for (int i = 0; i < players.Length; ++i)
@@ -185,6 +186,7 @@ public class GameManager : MonoBehaviour
         Camera.main.transform.position = cam_intitial_pos;
 
         state = GameState.PreRead;
+        turn_resolved = false;
     }
     private void ResetToPostGame()
     {
@@ -231,7 +233,7 @@ public class GameManager : MonoBehaviour
     }
     private void OnReadBlockHit(int player_num)
     {
-        if (player_num != -1) // not a neutral hit from a fault
+        if (player_num != -1 && !turn_resolved) // not a neutral hit from a fault
         {
             GivePoint(player_num);
             match_audio.PlayReadBlockHit();
@@ -252,37 +254,29 @@ public class GameManager : MonoBehaviour
         if (state == GameState.PreRead)
             FaultFalseStart(player_num);
 
-        // if missed and the other player has not started going, fault
-        if (!block_manager.GetReadBlock().IsHit() &&
-            !GetOpponent(player_num).IsGoingOrGone())
+        // if another fault has not happened and the block has not been hit, fault
+        if (!turn_resolved)
         {
             FaultMiss(player_num);
-        }
-
-        // if in post read and both players gone, go to post turn
-        if (state == GameState.PostRead)
-        {
-            if (GetOpponent(player_num).HasGone()) ToPostTurn();
         }
     }
 
     private void FaultFalseStart(int player_num)
     {
         match_audio.PlayFault();
+        Message("FAULT FALSE START    " + players[player_num - 1].GetPlayerName());
 
         ReadNext();
-        block_manager.GetReadBlock().HitNeutral();
-
-        Message("FAULT FALSE START    " + players[player_num - 1].GetPlayerName());
         GivePointToOpponents(player_num);
+        block_manager.GetReadBlock().Hit(GetOpponent(player_num), false);
     }
     private void FaultMiss(int player_num)
     {
         match_audio.PlayFault();
-
-        block_manager.GetReadBlock().HitNeutral();
         Message("FAULT MISS    " + players[player_num - 1].GetPlayerName());
         GivePointToOpponents(player_num);
+
+        block_manager.GetReadBlock().Hit(GetOpponent(player_num), false);
 
         // if in post read and fault given, go to post turn
         if (state == GameState.PostRead)
@@ -297,6 +291,7 @@ public class GameManager : MonoBehaviour
             GG(player_num);
         }
         UpdateUIScore();
+        turn_resolved = true;
     }
     private void GG(int winning_player_num)
     {

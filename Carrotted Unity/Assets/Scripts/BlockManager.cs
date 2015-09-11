@@ -12,7 +12,7 @@ public class BlockManager : MonoBehaviour
 
     // Blocks
     public Block block_prefab;
-    
+    public float block_height = 3;
     private List<Block> blocks;
     private Block read_block;
 
@@ -21,6 +21,7 @@ public class BlockManager : MonoBehaviour
     private float mid_gap = 2;
 
     // Words & phrases
+    private int book_number = 2;
     private List<string> phrases;
     private List<string> words;
     private static List<char> phrase_seperators = new List<char> { ',', '.', '?', '!', ':', ';' };
@@ -75,7 +76,7 @@ public class BlockManager : MonoBehaviour
                 Block b = Instantiate(block_prefab);
                 float offset = x >= cols / 2 ? mid_gap : 0;
                 Vector3 pos = new Vector3(corner_bottomleft.position.x + x * w_step + offset,
-                                          corner_bottomleft.position.y,
+                                          block_height,
                                           corner_bottomleft.position.z + y * h_step);
                 b.transform.parent = transform;
 
@@ -92,7 +93,7 @@ public class BlockManager : MonoBehaviour
         phrases = new List<string>();
         words = new List<string>();
 
-        string alltext = File.ReadAllText("Assets/Texts/Book2.txt");
+        string alltext = File.ReadAllText("Assets/Texts/Book" + book_number + ".txt");
        
         
         int attempts = 0;

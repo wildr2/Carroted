@@ -7,6 +7,8 @@ public class Block : MonoBehaviour
     private Rigidbody rb;
     private MeshRenderer mesh;
     public TextMesh text;
+    public BlockStump stump_prefab;
+    private BlockAudio block_audio;
     
     private Color color;
     private Color color_initial;
@@ -15,8 +17,6 @@ public class Block : MonoBehaviour
     private bool hit = false;
     private bool removing = false;
     public Action<int> event_hit;
-
-    private BlockAudio block_audio;
 
 
     private void Start()
@@ -58,6 +58,9 @@ public class Block : MonoBehaviour
     }
     private IEnumerator UpdateRemove()
     {
+        // Create placemarker to show who won the block
+        CreateStump();
+
         yield return new WaitForSeconds(1f);
 
         for (int i = 0; i < 12; ++i)
@@ -76,10 +79,16 @@ public class Block : MonoBehaviour
             if (t >= 1)
             {
                 Destroy(gameObject);
+                break;
             }
             transform.localScale = new Vector3(scale, scale, scale);
             yield return null;
         }
+    }
+    private void CreateStump()
+    {
+        BlockStump bs = Instantiate(stump_prefab);
+        bs.Initialize(pos_initial, color);
     }
 
     public void Initialize(string word, Vector3 pos_initial)
@@ -105,7 +114,7 @@ public class Block : MonoBehaviour
         rb.angularDrag = 2f;
         rb.drag = 0.3f;
     }
-    public void Hit(Player hitter)
+    public void Hit(Player hitter, bool apply_force)
     {
         if (hit) return;
 
@@ -116,13 +125,19 @@ public class Block : MonoBehaviour
         rb.angularDrag = 0.1f;
         rb.drag = 0.1f;
 
-        Vector3 dir = transform.position - hitter.transform.position;
-        dir.y = 0.2f;
-        rb.AddForce(dir * 150f);
-
-
+        if (apply_force)
+        {
+            Vector3 dir = transform.position - hitter.transform.position;
+            dir.y = 0.2f;
+            rb.AddForce(dir * 150f);
+        }
+        
         SetColor(hitter.GetPlayerColor());
         if (event_hit != null) event_hit(hitter.GetPlayerNumber());
+    }
+    public void Hit(Player hitter)
+    {
+        Hit(hitter, true);
     }
     public void HitNeutral()
     {
