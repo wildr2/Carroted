@@ -163,14 +163,14 @@ public class Player : MonoBehaviour
 
     // PUBLIC MODIFIERS
 
-    public void Inititalize(int number, string name, Color color, bool ai, int control_scheme, GameManager manager)
+    public void Inititalize(int number, GameManager manager)
     {
         player_num = number;
-        player_name = name;
-        player_color = color;
+        player_name = GameSettings.Instance.player_name[number-1];
+        player_color = GameSettings.Instance.GetPlayerColor(number);
 
         // Player controller
-        if (ai)
+        if (GameSettings.Instance.IsAIControlled(number))
         {
             gameObject.AddComponent<AIPlayerController>();
             GetComponent<AIPlayerController>().Initialize(this, manager);
@@ -178,7 +178,8 @@ public class Player : MonoBehaviour
         else
         {
             gameObject.AddComponent<HumanPlayerController>();
-            GetComponent<HumanPlayerController>().Initialize(control_scheme, manager);
+            GetComponent<HumanPlayerController>().Initialize(
+                GameSettings.Instance.GetHumanControlScheme(number), manager);
         }
         this.pc = GetComponent<PlayerController>();
         pc.InputSwing += StartSwing;

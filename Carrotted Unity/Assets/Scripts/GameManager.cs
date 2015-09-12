@@ -55,8 +55,8 @@ public class GameManager : MonoBehaviour
         block_manager.Initialize();
 
         // players
-        players[0].Inititalize(1, "Keube", GameSettings.Instance.GetPlayerColor(1), false, 3, this);
-        players[1].Inititalize(2, "Cayla", GameSettings.Instance.GetPlayerColor(2), true, 1, this);
+        players[0].Inititalize(1, this);
+        players[1].Inititalize(2, this);
 
         // events
         for (int i = 0; i < players.Length; ++i)
@@ -389,6 +389,10 @@ public class GameManager : MonoBehaviour
     public GameState GetGameState()
     {
         return state;
+    }
+    public int GetWinner()
+    {
+        return winner_player_num;
     }
 
 }

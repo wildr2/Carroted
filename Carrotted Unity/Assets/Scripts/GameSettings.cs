@@ -31,8 +31,8 @@ public class GameSettings : MonoBehaviour
     public float volume_fx = 1, volume_music = 0.1f;
 
     // Player info
-    private int[] player_control_scheme = { -1, -1 }; // -1 is ai...
-    private int[] player_ai_type = { 0, 0 }; // -1 is human controlled
+    private int[] player_control_scheme = { 3, 2 }; // -1 is ai...
+    private int[] player_ai_type = { 1, 1 }; // -1 is human controlled
     public string[] player_name = { "Player 1", "Player 2" };
     public int[] player_color_ID = { 0, 0 };
 
@@ -159,7 +159,7 @@ public class GameSettings : MonoBehaviour
     }    
     public bool IsAIControlled(int player_number)
     {
-        return player_control_scheme[player_number - 1] == -1;
+        return player_ai_type[player_number - 1] >= 0;
     }
     public int GetAIType(int player_number)
     {

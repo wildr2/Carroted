@@ -21,7 +21,7 @@ public class BlockManager : MonoBehaviour
     private float mid_gap = 2;
 
     // Words & phrases
-    private int book_number = 2;
+    private int book_number = 3;
     private List<string> phrases;
     private List<string> words;
     private static List<char> phrase_seperators = new List<char> { ',', '.', '?', '!', ':', ';' };
@@ -93,7 +93,7 @@ public class BlockManager : MonoBehaviour
         phrases = new List<string>();
         words = new List<string>();
 
-        string alltext = File.ReadAllText("Assets/Texts/Book" + book_number + ".txt");
+        string alltext = File.ReadAllText("Assets/Texts/Local Books/Book" + book_number + ".txt");
        
         
         int attempts = 0;
@@ -214,11 +214,11 @@ public class BlockManager : MonoBehaviour
         }
 
         // cleanup the phrase
+        phrase = phrase.Replace("\n", " ");
+        phrase = phrase.Replace("\r\n", " ");
+        phrase = phrase.Replace("\r", " ");
         phrase = phrase.Replace("'", "");
         phrase = phrase.Replace("\"", "");
-        phrase = phrase.Replace("\n", "");
-        phrase = phrase.Replace("\r\n", "");
-        phrase = phrase.Replace("\r", "");
         phrase = phrase.Replace("\t", "");
         phrase = phrase.Replace("  ", " ");
         phrase = phrase.Trim();
