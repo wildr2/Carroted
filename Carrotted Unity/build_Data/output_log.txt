@@ -16,7 +16,7 @@ Platform assembly: C:\Users\Robert\Keep\Personal\Game Development\Carrotted\Carr
 Loading C:\Users\Robert\Keep\Personal\Game Development\Carrotted\Carrotted Unity\build_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
 Platform assembly: C:\Users\Robert\Keep\Personal\Game Development\Carrotted\Carrotted Unity\build_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
 Loading C:\Users\Robert\Keep\Personal\Game Development\Carrotted\Carrotted Unity\build_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
-- Completed reload, in  0.078 seconds
+- Completed reload, in  0.083 seconds
 desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
@@ -24,16 +24,10 @@ desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
 Platform assembly: C:\Users\Robert\Keep\Personal\Game Development\Carrotted\Carrotted Unity\build_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Users\Robert\Keep\Personal\Game Development\Carrotted\Carrotted Unity\build_Data\Managed\System.dll (this message is harmless)
 Setting up 1 worker threads for Enlighten.
-  Thread -> id: 1094 -> priority: 1 
+  Thread -> id: 1b00 -> priority: 1 
 Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 2.095733 ms
+UnloadTime: 2.117396 ms
 
 Unloading 5 unused Assets to reduce memory usage. Loaded Objects now: 640.
-Total: 0.274298 ms (FindLiveObjects: 0.037470 ms CreateObjectMapping: 0.011416 ms MarkObjects: 0.218970 ms  DeleteObjects: 0.006147 ms)
-
-Unloading 1 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 0.928574 ms
-
-Unloading 89 unused Assets to reduce memory usage. Loaded Objects now: 559.
-Total: 0.375001 ms (FindLiveObjects: 0.044789 ms CreateObjectMapping: 0.017857 ms MarkObjects: 0.261125 ms  DeleteObjects: 0.050936 ms)
+Total: 0.230387 ms (FindLiveObjects: 0.021662 ms CreateObjectMapping: 0.010831 ms MarkObjects: 0.192038 ms  DeleteObjects: 0.005562 ms)
 

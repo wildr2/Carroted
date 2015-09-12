@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public MatchAudio match_audio;
     public BlockManager block_manager;
     public Player[] players;
+    public GGPage gg_page;
 
     // State and score
     private GameState state = GameState.MemorizationTime;
@@ -300,6 +301,8 @@ public class GameManager : MonoBehaviour
 
         Message("GAME    " + players[winning_player_num - 1].GetPlayerName());
         winner_player_num = winning_player_num;
+
+        gg_page.TransitionIn();
     }
     private void GivePointToOpponents(int player_num)
     {
