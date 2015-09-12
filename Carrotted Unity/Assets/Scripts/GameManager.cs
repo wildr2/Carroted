@@ -112,6 +112,7 @@ public class GameManager : MonoBehaviour
     
     private void BeginMemorization()
     {
+        memorize_time = GameSettings.Instance.GetMemorizeTimeMins() * 60f;
         if (debug)
         {
             memorize_time = 0;

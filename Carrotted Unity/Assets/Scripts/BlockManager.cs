@@ -291,6 +291,13 @@ public class BlockManager : MonoBehaviour
     {
         reader.text = "...";
     }
+    public void SetWordsVisible(bool visible)
+    {
+        foreach (Block b in blocks)
+        {
+            if (b != null) b.SetTextVisible(visible);
+        }
+    }
 
 
     // PUBLIC ACCESSORS

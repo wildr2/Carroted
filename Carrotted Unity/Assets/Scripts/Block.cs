@@ -151,6 +151,10 @@ public class Block : MonoBehaviour
         removing = true;
         StartCoroutine(UpdateRemove());
     }
+    public void SetTextVisible(bool visible)
+    {
+        text.gameObject.SetActive(visible);
+    }
 
     public Color GetColor()
     {

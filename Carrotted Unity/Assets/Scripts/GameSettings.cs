@@ -32,11 +32,12 @@ public class GameSettings : MonoBehaviour
 
     // Player info
     private int[] player_control_scheme = { 3, 2 }; // -1 is ai...
-    private int[] player_ai_type = { 1, 1 }; // -1 is human controlled
+    private int[] player_ai_type = { -1, 1 }; // -1 is human controlled
     public string[] player_name = { "Player 1", "Player 2" };
     public int[] player_color_ID = { 0, 0 };
 
 	// Match info
+    public int memorize_time_id = 2;
     public int match_type;
     public bool music_on = true;
 
@@ -50,6 +51,8 @@ public class GameSettings : MonoBehaviour
            "4cc2ff", "09ff49", "a5ff09", "f8ff38", "ff9a38", "6f1a4a" };
     [System.NonSerialized]
     public string[] ai_names = { "Easy AI", "Medium AI", "Hard AI" };
+    [System.NonSerialized]
+    public int[] memorize_times = { 0, 1, 2, 3, 4, 5, 6 }; // minutes
 
 
     // PUBLIC MODIFIERS
@@ -161,6 +164,10 @@ public class GameSettings : MonoBehaviour
     {
         return player_ai_type[player_number - 1] >= 0;
     }
+    public bool IsAIMatch()
+    {
+        return IsAIControlled(1) && IsAIControlled(2);
+    }
     public int GetAIType(int player_number)
     {
         return player_ai_type[player_number - 1];
@@ -188,5 +195,9 @@ public class GameSettings : MonoBehaviour
     {
         return player_control_scheme[0] == control_scheme ? 1 :
             player_control_scheme[1] == control_scheme ? 2 : -1;
+    }
+    public int GetMemorizeTimeMins()
+    {
+        return memorize_times[memorize_time_id];
     }
 }

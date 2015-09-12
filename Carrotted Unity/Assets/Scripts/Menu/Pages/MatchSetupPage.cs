@@ -8,10 +8,11 @@ public class MatchSetupPage : UIMenuPage
     public MainMenuPage page_mainmenu;
     public StartPopupPage start_popup_page;
 
-    public Text[] txt_control, txt_weapon, txt_color, txt_name;
+    public Text[] txt_control, txt_color, txt_name;
     public InputField[] inputfield_name;
     public Text press_start_footer;
     public Text same_colors_footer;
+    public Text txt_mem_time;
 
     public Player[] forshow_players;
 
@@ -89,6 +90,9 @@ public class MatchSetupPage : UIMenuPage
 
             // Control type
             txt_control[i].text = GS.GetControlTypeName(i+1);
+
+            // Misc
+            txt_mem_time.text = GameSettings.Instance.GetMemorizeTimeMins() + " min to memorize";
         }
 
         // Footers
@@ -171,6 +175,15 @@ public class MatchSetupPage : UIMenuPage
 
         // Footer
         UpdatePressStartFooter();
+    }
+    public void OnButtonMemTime()
+    {
+        // change time
+        int n = GS.memorize_times.Length;
+        GS.memorize_time_id = (GS.memorize_time_id + 1) % n;
+
+        // update button
+        txt_mem_time.text = GameSettings.Instance.GetMemorizeTimeMins() + " min to memorize";
     }
 
     public void OnButtonStart()
